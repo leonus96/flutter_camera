@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:camara_flutter/src/screens/camera_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -58,15 +59,31 @@ class _HomeScreenState extends State<HomeScreen> {
               child: ListBody(
                 children: <Widget>[
                   GestureDetector(
-                    child: Text('Take a picture'),
+                    child: Text('image_picker: Take picture'),
                     onTap: _openCamera,
                   ),
                   Padding(
                     padding: EdgeInsets.all(8.0),
                   ),
                   GestureDetector(
-                    child: new Text('Select from gallery'),
+                    child: new Text('image_picker: Select from gallery'),
                     onTap: _openGallery,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                  ),
+                  GestureDetector(
+                    child: new Text('camera: CameraPreview'),
+                    onTap: () async {
+                      String path = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CameraScreen()));
+                      PickedFile pickedFile = PickedFile(path);
+                      images.add(pickedFile);
+                      Navigator.pop(context);
+                      setState(() {});
+                    },
                   ),
                 ],
               ),
